@@ -19,11 +19,15 @@ public class CustomArrayList<T> implements CustomList<T> {
 
   /**
    * Adds element of type T to the end of the list
+   * If array gets full (80% capacity is full), rescale to a new array of size 2 * oldSize
    *
    * @param el that is added
    */
   public void add(T el) {
-    size++;
+    if (size + 1 >= array.length * 0.8) {
+      this.rescale(array.length * 2);
+    }
+    array[++size] = el;
   }
 
   /**
@@ -36,7 +40,12 @@ public class CustomArrayList<T> implements CustomList<T> {
    * @throws ArrayIndexOutOfBoundsException if the element index is outside of range
    */
   public void add(T el, int index) throws ArrayIndexOutOfBoundsException {
-
+    if (index < 0 || index >= size) {
+      throw new ArrayIndexOutOfBoundsException("Incorrect index, out of bound");
+    }
+    System.arraycopy(array, index, array, index + 1, size - index);
+    array[index] = el;
+    size++;
   }
 
   /**
@@ -68,6 +77,11 @@ public class CustomArrayList<T> implements CustomList<T> {
     return size;
   }
 
+  /**
+   * Adjusts the size of the array for efficient memory usage
+   *
+   * @param newCapacity
+   */
   private void rescale(int newCapacity) {
     array = Arrays.copyOf(array, newCapacity);
   }

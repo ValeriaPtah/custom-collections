@@ -5,12 +5,20 @@ import static org.junit.jupiter.api.Assertions.*;
 class CustomArrayListTest {
 
   @Test
-  void add() {
-
+  void addToTheEnd() {
+    CustomList<Integer> customList = new CustomArrayList<Integer>();
+    customList.add(5);
+    customList.add(4);
+    assertEquals(2, customList.size());
   }
 
   @Test
-  void add1() {
+  void addAtIndex() {
+    CustomList<Integer> customList = new CustomArrayList<Integer>();
+    customList.add(5);
+    customList.add(4);
+    customList.add(3, 1);
+    assertEquals(3, customList.size());
   }
 
   @Test
