@@ -5,11 +5,23 @@ import static org.junit.jupiter.api.Assertions.*;
 class CustomArrayListTest {
 
   @Test
+  void addOne() {
+    CustomList<Integer> customList = new CustomArrayList<Integer>();
+    customList.add(5);
+    System.out.println(customList.toString());
+    assertEquals(1, customList.size());
+    assertEquals(5, customList.at(0));
+  }
+
+  @Test
   void addToTheEnd() {
     CustomList<Integer> customList = new CustomArrayList<Integer>();
     customList.add(5);
     customList.add(4);
+    System.out.println(customList.toString());
     assertEquals(2, customList.size());
+    assertEquals(5, customList.at(0));
+    assertEquals(4, customList.at(1));
   }
 
   @Test
@@ -18,14 +30,21 @@ class CustomArrayListTest {
     customList.add(5);
     customList.add(4);
     customList.add(3, 1);
+    System.out.println(customList.toString());
     assertEquals(3, customList.size());
+    assertEquals(3, customList.at(1));
+    assertEquals(4, customList.at(2));
   }
 
   @Test
-  void remove() {
-  }
-
-  @Test
-  void size() {
+  void removeAtIndex() {
+    CustomList<Integer> customList = new CustomArrayList<Integer>();
+    customList.add(5);
+    customList.add(4);
+    customList.add(3);
+    assertEquals(4, customList.remove(1));
+    System.out.println(customList.toString());
+    assertEquals(2, customList.size());
+    assertEquals(3, customList.at(1));
   }
 }

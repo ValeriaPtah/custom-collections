@@ -6,5 +6,7 @@ public interface CustomList<T> {
 
   T remove(int index) throws ArrayIndexOutOfBoundsException;
 
+  T at(int index) throws ArrayIndexOutOfBoundsException;
+
   int size();
 }

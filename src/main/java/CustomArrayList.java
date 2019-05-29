@@ -27,7 +27,8 @@ public class CustomArrayList<T> implements CustomList<T> {
     if (size + 1 >= array.length * 0.8) {
       this.rescale(array.length * 2);
     }
-    array[++size] = el;
+    array[size] = el;
+    size++;
   }
 
   /**
@@ -47,6 +48,26 @@ public class CustomArrayList<T> implements CustomList<T> {
     array[index] = el;
     size++;
   }
+
+  /**
+   * @param index
+   * @return element at INDEX
+   */
+  @SuppressWarnings("unchecked")
+  public T at(int index) {
+    if (index < 0 || index >= size) {
+      throw new ArrayIndexOutOfBoundsException("Incorrect index, nothing at this position");
+    }
+    return (T) array[index];
+  }
+
+  /**
+   * @return size of the array (amount of elements it holds
+   */
+  public int size() {
+    return size;
+  }
+
 
   /**
    * Removes an element at index i, shifting all back, e.g. `[1, 2, 3]` after removal at 1 list to becomes `[2, 3]`
@@ -70,11 +91,9 @@ public class CustomArrayList<T> implements CustomList<T> {
     return (T) removed;
   }
 
-  /**
-   * @return size of the array (amount of elements it holds
-   */
-  public int size() {
-    return size;
+  @Override
+  public String toString() {
+    return Arrays.toString(array);
   }
 
   /**
