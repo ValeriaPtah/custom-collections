@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class CustomArrayList<T> implements CustomList<T> {
 
-  private static int INIT_CAPACITY = 10;
+  private static final int INIT_CAPACITY = 10;
   private Object[] array;
   private int size;
 
