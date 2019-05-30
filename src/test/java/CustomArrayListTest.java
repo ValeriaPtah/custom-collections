@@ -73,4 +73,9 @@ class CustomArrayListTest {
     CustomList<Integer> customList = new CustomArrayList<>(4);
     assertThrows(ArrayIndexOutOfBoundsException.class, () -> customList.remove(6));
   }
+
+  @Test
+  void triggerExceptionWithNegativeCapacity() {
+    assertThrows(IllegalArgumentException.class, () -> new CustomArrayList<>(-4));
+  }
 }
