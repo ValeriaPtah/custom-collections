@@ -74,12 +74,12 @@ public class CustomArrayList<T> implements CustomList<T> {
       throw new ArrayIndexOutOfBoundsException("Incorrect index, nothing at this position");
     }
     T removed = array[index];
-    if (index == size - 1) {
-      array[--size] = null;
+    size--;
+    if (index == size) {
+      array[size] = null;
     }
     else {
-      System.arraycopy(array, index + 1, array, index, size - index);
-      size--;
+      System.arraycopy(array, index + 1, array, index, size - index + 1);
     }
     if ((size <= array.length / 4) && (array.length / 2 > INIT_CAPACITY)) {
       this.rescale(array.length / 2);
