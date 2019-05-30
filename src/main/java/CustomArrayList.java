@@ -43,7 +43,9 @@ public class CustomArrayList<T> implements CustomList<T> {
     if (index < 0 || index > size) {
       throw new ArrayIndexOutOfBoundsException("Incorrect index, out of bound");
     }
-    System.arraycopy(array, index, array, index + 1, size - index);
+    if (index != size) {
+      System.arraycopy(array, index, array, index + 1, size - index);
+    }
     array[index] = el;
     size++;
   }
@@ -74,8 +76,13 @@ public class CustomArrayList<T> implements CustomList<T> {
       throw new ArrayIndexOutOfBoundsException("Incorrect index, nothing get this position");
     }
     Object removed = array[index];
-    System.arraycopy(array, index + 1, array, index, size - index - 1);
-    array[--size] = null;
+    if (index == size - 1) {
+      array[--size] = null;
+    }
+    else {
+      System.arraycopy(array, index + 1, array, index, size - index);
+      size--;
+    }
     if (size <= array.length / 4) {
       this.rescale(array.length / 2);
     }

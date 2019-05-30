@@ -45,6 +45,16 @@ class CustomArrayListTest {
   }
 
   @Test
+  void removeInTheEnd() {
+    CustomList<Integer> customList = new CustomArrayList<>();
+    customList.add(5);
+    customList.add(4);
+    customList.add(3);
+    assertEquals(3, customList.remove(2));
+    assertEquals(2, customList.size());
+  }
+
+  @Test
   void addAndIncreaseCapacity() {
     CustomList<Integer> customList = new CustomArrayList<>(2);
     customList.add(5);
