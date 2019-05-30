@@ -27,8 +27,7 @@ public class CustomArrayList<T> implements CustomList<T> {
     if (size + 1 >= array.length * 0.8) {
       this.rescale(array.length * 2);
     }
-    array[size] = el;
-    size++;
+    array[size++] = el;
   }
 
   /**
@@ -85,7 +84,7 @@ public class CustomArrayList<T> implements CustomList<T> {
     Object removed = array[index];
     System.arraycopy(array, index + 1, array, index, size - index - 1);
     array[--size] = null;
-    if (size < array.length / 4) {
+    if (size <= array.length / 4) {
       this.rescale(array.length / 2);
     }
     return (T) removed;

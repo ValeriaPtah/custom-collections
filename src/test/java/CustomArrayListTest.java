@@ -6,7 +6,7 @@ class CustomArrayListTest {
 
   @Test
   void addOne() {
-    CustomList<Integer> customList = new CustomArrayList<Integer>();
+    CustomList<Integer> customList = new CustomArrayList<>();
     customList.add(5);
     System.out.println(customList.toString());
     assertEquals(1, customList.size());
@@ -15,7 +15,7 @@ class CustomArrayListTest {
 
   @Test
   void addToTheEnd() {
-    CustomList<Integer> customList = new CustomArrayList<Integer>();
+    CustomList<Integer> customList = new CustomArrayList<>();
     customList.add(5);
     customList.add(4);
     System.out.println(customList.toString());
@@ -26,7 +26,7 @@ class CustomArrayListTest {
 
   @Test
   void addAtIndex() {
-    CustomList<Integer> customList = new CustomArrayList<Integer>();
+    CustomList<Integer> customList = new CustomArrayList<>();
     customList.add(5);
     customList.add(4);
     customList.add(3, 1);
@@ -38,7 +38,7 @@ class CustomArrayListTest {
 
   @Test
   void removeAtIndex() {
-    CustomList<Integer> customList = new CustomArrayList<Integer>();
+    CustomList<Integer> customList = new CustomArrayList<>();
     customList.add(5);
     customList.add(4);
     customList.add(3);
@@ -46,5 +46,25 @@ class CustomArrayListTest {
     System.out.println(customList.toString());
     assertEquals(2, customList.size());
     assertEquals(3, customList.at(1));
+  }
+
+  @Test
+  void addAndIncreaseCapacity() {
+    CustomList<Integer> customList = new CustomArrayList<>(2);
+    customList.add(5);
+    customList.add(4);
+    customList.add(3);
+    System.out.println(customList.toString());
+    assertEquals(3, customList.size());
+  }
+
+  @Test
+  void removeAndDecreaseCapacity() {
+    CustomList<Integer> customList = new CustomArrayList<>(4);
+    customList.add(5);
+    customList.add(4);
+    customList.remove(1);
+    System.out.println(customList.toString());
+    assertEquals(1, customList.size());
   }
 }
