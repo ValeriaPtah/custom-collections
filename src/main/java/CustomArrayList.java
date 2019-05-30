@@ -37,7 +37,7 @@ public class CustomArrayList<T> implements CustomList<T> {
    * @throws ArrayIndexOutOfBoundsException if the element index is outside of range
    */
   public void add(T el, int index) {
-    if (size + 1 >= array.length * 0.8) {
+    if ((size + 1 >= array.length * 0.8) && (array.length * 2 > INIT_CAPACITY)) {
       this.rescale(array.length * 2);
     }
     if (index < 0 || index > size) {
@@ -46,8 +46,8 @@ public class CustomArrayList<T> implements CustomList<T> {
     if (index != size) {
       System.arraycopy(array, index, array, index + 1, size - index);
     }
-    array[index] = el;
     size++;
+    array[index] = el;
   }
 
   /**
@@ -83,7 +83,7 @@ public class CustomArrayList<T> implements CustomList<T> {
       System.arraycopy(array, index + 1, array, index, size - index);
       size--;
     }
-    if (size <= array.length / 4) {
+    if ((size <= array.length / 4) && (array.length / 2 > INIT_CAPACITY)) {
       this.rescale(array.length / 2);
     }
     return (T) removed;
