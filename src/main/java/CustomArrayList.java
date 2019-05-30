@@ -42,7 +42,7 @@ public class CustomArrayList<T> implements CustomList<T> {
     if (index < 0 || index > size) {
       throw new ArrayIndexOutOfBoundsException("Incorrect index, out of bound");
     }
-    if ((size + 1 >= array.length * GROWTH_THRESHOLD)) {
+    if (size + 1 >= array.length * GROWTH_THRESHOLD) {
       rescale(array.length * 2);
     }
     // shift to the right if adding inside, otherwise just assign to the end (ensures O(1) on adding to the end)
