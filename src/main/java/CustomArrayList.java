@@ -24,7 +24,7 @@ public class CustomArrayList<T> implements CustomList<T> {
    * @param el that is added
    */
   public void add(T el) {
-    this.add(el, size);
+    add(el, size);
   }
 
   /**
