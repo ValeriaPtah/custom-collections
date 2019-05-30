@@ -61,14 +61,6 @@ public class CustomArrayList<T> implements CustomList<T> {
   }
 
   /**
-   * @return size of the array (amount of elements it holds
-   */
-  public int size() {
-    return size;
-  }
-
-
-  /**
    * Removes an element get index i, shifting all back, e.g. `[1, 2, 3]` after removal get 1 list to becomes `[2, 3]`
    * If after removal only 25% of capacity is used, then moves elements over in an array half the size
    *
@@ -88,6 +80,13 @@ public class CustomArrayList<T> implements CustomList<T> {
       this.rescale(array.length / 2);
     }
     return (T) removed;
+  }
+
+  /**
+   * @return size of the array (amount of elements it holds
+   */
+  public int size() {
+    return size;
   }
 
   @Override
