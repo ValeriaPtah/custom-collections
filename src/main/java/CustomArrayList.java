@@ -6,12 +6,12 @@ public class CustomArrayList<T> implements CustomList<T> {
   private T[] array;
   private int size;
 
-  CustomArrayList() {
+  public CustomArrayList() {
     this(INIT_CAPACITY);
   }
 
   @SuppressWarnings("unchecked")
-  CustomArrayList(int capacity) {
+  public CustomArrayList(int capacity) {
     if (capacity < 0) {
       throw new IllegalArgumentException("Capacity should be more than 0");
     }
