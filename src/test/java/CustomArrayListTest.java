@@ -8,7 +8,6 @@ class CustomArrayListTest {
   void addOne() {
     CustomList<Integer> customList = new CustomArrayList<>();
     customList.add(5);
-    System.out.println(customList.toString());
     assertEquals(1, customList.size());
     assertEquals(5, customList.at(0));
   }
@@ -18,7 +17,6 @@ class CustomArrayListTest {
     CustomList<Integer> customList = new CustomArrayList<>();
     customList.add(5);
     customList.add(4);
-    System.out.println(customList.toString());
     assertEquals(2, customList.size());
     assertEquals(5, customList.at(0));
     assertEquals(4, customList.at(1));
@@ -30,7 +28,6 @@ class CustomArrayListTest {
     customList.add(5);
     customList.add(4);
     customList.add(3, 1);
-    System.out.println(customList.toString());
     assertEquals(3, customList.size());
     assertEquals(3, customList.at(1));
     assertEquals(4, customList.at(2));
@@ -43,7 +40,6 @@ class CustomArrayListTest {
     customList.add(4);
     customList.add(3);
     assertEquals(4, customList.remove(1));
-    System.out.println(customList.toString());
     assertEquals(2, customList.size());
     assertEquals(3, customList.at(1));
   }
@@ -54,7 +50,6 @@ class CustomArrayListTest {
     customList.add(5);
     customList.add(4);
     customList.add(3);
-    System.out.println(customList.toString());
     assertEquals(3, customList.size());
   }
 
@@ -64,7 +59,6 @@ class CustomArrayListTest {
     customList.add(5);
     customList.add(4);
     customList.remove(1);
-    System.out.println(customList.toString());
     assertEquals(1, customList.size());
   }
 }
