@@ -6,11 +6,11 @@ public class CustomArrayList<T> implements CustomList<T> {
   private Object[] array;
   private int size;
 
-  public CustomArrayList() {
+  CustomArrayList() {
     this(INIT_CAPACITY);
   }
 
-  public CustomArrayList(int capacity) {
+  CustomArrayList(int capacity) {
     if (capacity < 0) {
       throw new IllegalArgumentException("Capacity should be more than 0");
     }
@@ -24,10 +24,7 @@ public class CustomArrayList<T> implements CustomList<T> {
    * @param el that is added
    */
   public void add(T el) {
-    if (size + 1 >= array.length * 0.8) {
-      this.rescale(array.length * 2);
-    }
-    array[size++] = el;
+    this.add(el, size);
   }
 
   /**
@@ -40,7 +37,10 @@ public class CustomArrayList<T> implements CustomList<T> {
    * @throws ArrayIndexOutOfBoundsException if the element index is outside of range
    */
   public void add(T el, int index) {
-    if (index < 0 || index >= size) {
+    if (size + 1 >= array.length * 0.8) {
+      this.rescale(array.length * 2);
+    }
+    if (index < 0 || index > size) {
       throw new ArrayIndexOutOfBoundsException("Incorrect index, out of bound");
     }
     System.arraycopy(array, index, array, index + 1, size - index);
