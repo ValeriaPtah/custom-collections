@@ -3,6 +3,8 @@ import java.util.Arrays;
 public class CustomArrayList<T> implements CustomList<T> {
 
   private static final int INIT_CAPACITY = 10;
+  private static final double GROWTH_THRESHOLD = 0.8;
+  private static final double SHRINK_THRESHOLD = 0.25;
   private T[] array;
   private int size;
 
@@ -40,7 +42,7 @@ public class CustomArrayList<T> implements CustomList<T> {
     if (index < 0 || index > size) {
       throw new ArrayIndexOutOfBoundsException("Incorrect index, out of bound");
     }
-    if ((size + 1 >= array.length * 0.8)) {
+    if ((size + 1 >= array.length * GROWTH_THRESHOLD)) {
       rescale(array.length * 2);
     }
     // shift to the right if adding inside, otherwise just assign to the end (ensures O(1) on adding to the end)
@@ -84,7 +86,7 @@ public class CustomArrayList<T> implements CustomList<T> {
       // was not the last element, shift all next elements one position to the left
       System.arraycopy(array, index + 1, array, index, size - index + 1);
     }
-    if ((size <= array.length / 4) && (array.length / 2 > INIT_CAPACITY)) {
+    if ((size <= array.length * SHRINK_THRESHOLD) && (array.length / 2 > INIT_CAPACITY)) {
       rescale(array.length / 2);
     }
     return removed;
