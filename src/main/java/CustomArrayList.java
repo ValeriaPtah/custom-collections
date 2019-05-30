@@ -43,7 +43,7 @@ public class CustomArrayList<T> implements CustomList<T> {
       throw new ArrayIndexOutOfBoundsException("Incorrect index, out of bound");
     }
     if (size + 1 >= array.length * GROWTH_THRESHOLD) {
-      rescale(array.length * 2);
+      doubleCapacity();
     }
     // shift to the right if adding inside, otherwise just assign to the end (ensures O(1) on adding to the end)
     if (index != size) {
@@ -87,7 +87,7 @@ public class CustomArrayList<T> implements CustomList<T> {
       System.arraycopy(array, index + 1, array, index, size - index + 1);
     }
     if ((size <= array.length * SHRINK_THRESHOLD) && (array.length / 2 > INIT_CAPACITY)) {
-      rescale(array.length / 2);
+      shrinkCapacity();
     }
     return removed;
   }
@@ -105,11 +105,14 @@ public class CustomArrayList<T> implements CustomList<T> {
   }
 
   /**
-   * Adjusts the size of the array for efficient memory usage
-   *
-   * @param newCapacity
+   * Adjust the size of the array for efficient memory usage
    */
-  private void rescale(int newCapacity) {
-    array = Arrays.copyOf(array, newCapacity);
+  private void doubleCapacity() {
+    array = Arrays.copyOf(array, array.length * 2);
+
+  }
+
+  private void shrinkCapacity() {
+    array = Arrays.copyOf(array, array.length / 2);
   }
 }
