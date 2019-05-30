@@ -39,7 +39,7 @@ public class CustomArrayList<T> implements CustomList<T> {
    * @param index where an element should be added
    * @throws ArrayIndexOutOfBoundsException if the element index is outside of range
    */
-  public void add(T el, int index) throws ArrayIndexOutOfBoundsException {
+  public void add(T el, int index) {
     if (index < 0 || index >= size) {
       throw new ArrayIndexOutOfBoundsException("Incorrect index, out of bound");
     }
@@ -77,7 +77,7 @@ public class CustomArrayList<T> implements CustomList<T> {
    * @throws ArrayIndexOutOfBoundsException if the element index is outside of range
    */
   @SuppressWarnings("unchecked")
-  public T remove(int index) throws ArrayIndexOutOfBoundsException {
+  public T remove(int index) {
     if (index < 0 || index >= size) {
       throw new ArrayIndexOutOfBoundsException("Incorrect index, nothing at this position");
     }

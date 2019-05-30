@@ -61,4 +61,16 @@ class CustomArrayListTest {
     customList.remove(1);
     assertEquals(1, customList.size());
   }
+
+  @Test
+  void triggerExceptionWhenAddAtIndex() {
+    CustomList<Integer> customList = new CustomArrayList<>(4);
+    assertThrows(ArrayIndexOutOfBoundsException.class, () -> customList.add(3, 6));
+  }
+
+  @Test
+  void triggerExceptionWhenRemoveAtIndex() {
+    CustomList<Integer> customList = new CustomArrayList<>(4);
+    assertThrows(ArrayIndexOutOfBoundsException.class, () -> customList.remove(6));
+  }
 }
