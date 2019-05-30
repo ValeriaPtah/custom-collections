@@ -9,7 +9,7 @@ class CustomArrayListTest {
     CustomList<Integer> customList = new CustomArrayList<>();
     customList.add(5);
     assertEquals(1, customList.size());
-    assertEquals(5, customList.at(0));
+    assertEquals(5, customList.get(0));
   }
 
   @Test
@@ -18,8 +18,8 @@ class CustomArrayListTest {
     customList.add(5);
     customList.add(4);
     assertEquals(2, customList.size());
-    assertEquals(5, customList.at(0));
-    assertEquals(4, customList.at(1));
+    assertEquals(5, customList.get(0));
+    assertEquals(4, customList.get(1));
   }
 
   @Test
@@ -29,8 +29,8 @@ class CustomArrayListTest {
     customList.add(4);
     customList.add(3, 1);
     assertEquals(3, customList.size());
-    assertEquals(3, customList.at(1));
-    assertEquals(4, customList.at(2));
+    assertEquals(3, customList.get(1));
+    assertEquals(4, customList.get(2));
   }
 
   @Test
@@ -41,7 +41,7 @@ class CustomArrayListTest {
     customList.add(3);
     assertEquals(4, customList.remove(1));
     assertEquals(2, customList.size());
-    assertEquals(3, customList.at(1));
+    assertEquals(3, customList.get(1));
   }
 
   @Test

@@ -6,7 +6,7 @@ public interface CustomList<T> {
 
   T remove(int index);
 
-  T at(int index);
+  T get(int index);
 
   int size();
 }

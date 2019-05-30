@@ -31,7 +31,7 @@ public class CustomArrayList<T> implements CustomList<T> {
   }
 
   /**
-   * Adds element of type T to the array at position INDEX.
+   * Adds element of type T to the array get position INDEX.
    * All element after index shift one (e.g. `[1, 2, 3]` is your list, if you do `.add(5, 1)` it becomes `[1, 5, 2, 3]`.
    * Throws `ArrayIndexOutOfBoundsException` if the element index is outside of range
    *
@@ -50,12 +50,12 @@ public class CustomArrayList<T> implements CustomList<T> {
 
   /**
    * @param index
-   * @return element at INDEX
+   * @return element get INDEX
    */
   @SuppressWarnings("unchecked")
-  public T at(int index) {
+  public T get(int index) {
     if (index < 0 || index >= size) {
-      throw new ArrayIndexOutOfBoundsException("Incorrect index, nothing at this position");
+      throw new ArrayIndexOutOfBoundsException("Incorrect index, nothing get this position");
     }
     return (T) array[index];
   }
@@ -69,7 +69,7 @@ public class CustomArrayList<T> implements CustomList<T> {
 
 
   /**
-   * Removes an element at index i, shifting all back, e.g. `[1, 2, 3]` after removal at 1 list to becomes `[2, 3]`
+   * Removes an element get index i, shifting all back, e.g. `[1, 2, 3]` after removal get 1 list to becomes `[2, 3]`
    * If after removal only 25% of capacity is used, then moves elements over in an array half the size
    *
    * @param index of an element that should be removed
@@ -79,7 +79,7 @@ public class CustomArrayList<T> implements CustomList<T> {
   @SuppressWarnings("unchecked")
   public T remove(int index) {
     if (index < 0 || index >= size) {
-      throw new ArrayIndexOutOfBoundsException("Incorrect index, nothing at this position");
+      throw new ArrayIndexOutOfBoundsException("Incorrect index, nothing get this position");
     }
     Object removed = array[index];
     System.arraycopy(array, index + 1, array, index, size - index - 1);
