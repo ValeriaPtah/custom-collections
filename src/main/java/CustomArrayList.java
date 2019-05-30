@@ -7,7 +7,7 @@ public class CustomArrayList<T> implements CustomList<T> {
   private int size;
 
   public CustomArrayList() {
-    array = new Object[INIT_CAPACITY];
+    this(INIT_CAPACITY);
   }
 
   public CustomArrayList(int capacity) {
