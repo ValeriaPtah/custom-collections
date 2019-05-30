@@ -60,15 +60,17 @@ class CustomArrayListTest {
     customList.add(5);
     customList.add(4);
     customList.add(3);
+    System.out.println("addAndIncreaseCapacity: 2 results: " + customList.toString());
     assertEquals(3, customList.size());
   }
 
   @Test
   void removeAndDecreaseCapacity() {
-    CustomList<Integer> customList = new CustomArrayList<>(4);
+    CustomList<Integer> customList = new CustomArrayList<>(24);
     customList.add(5);
     customList.add(4);
     customList.remove(1);
+    System.out.println("removeAndDecreaseCapacity: 24 results: " + customList.toString());
     assertEquals(1, customList.size());
   }
 
