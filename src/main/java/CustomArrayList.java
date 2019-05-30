@@ -37,11 +37,11 @@ public class CustomArrayList<T> implements CustomList<T> {
    * @throws ArrayIndexOutOfBoundsException if the element index is outside of range
    */
   public void add(T el, int index) {
-    if ((size + 1 >= array.length * 0.8)) {
-      this.rescale(array.length * 2);
-    }
     if (index < 0 || index > size) {
       throw new ArrayIndexOutOfBoundsException("Incorrect index, out of bound");
+    }
+    if ((size + 1 >= array.length * 0.8)) {
+      this.rescale(array.length * 2);
     }
     if (index != size) {
       System.arraycopy(array, index, array, index + 1, size - index);
