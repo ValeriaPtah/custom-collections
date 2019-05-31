@@ -1,3 +1,5 @@
+package ua.ptah.collections.list;
+
 public interface CustomList<T> {
 
   void add(T el);

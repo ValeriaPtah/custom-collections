@@ -1,3 +1,5 @@
+package ua.ptah.collections.list;
+
 import java.util.Arrays;
 
 public class CustomArrayList<T> implements CustomList<T> {
@@ -8,10 +10,20 @@ public class CustomArrayList<T> implements CustomList<T> {
   private T[] array;
   private int size;
 
+  /**
+   * Constructs an empty list with a default INIT_CAPACITY
+   */
   public CustomArrayList() {
     this(INIT_CAPACITY);
   }
 
+  /**
+   * Constructs an empty list with the specified capacity.
+   *
+   * @param capacity the initial capacity of the list
+   * @throws IllegalArgumentException if the specified initial capacity
+   *                                  is negative
+   */
   @SuppressWarnings("unchecked")
   public CustomArrayList(int capacity) {
     if (capacity < 0) {
@@ -45,7 +57,7 @@ public class CustomArrayList<T> implements CustomList<T> {
     if (size + 1 >= array.length * GROWTH_THRESHOLD) {
       doubleCapacity();
     }
-    // shift to the right if adding inside, otherwise just assign to the end (ensures O(1) on adding to the end)
+    // shift to the right if adding inside, otherwise just assign to the end
     if (index != size) {
       System.arraycopy(array, index, array, index + 1, size - index);
     }
@@ -53,9 +65,13 @@ public class CustomArrayList<T> implements CustomList<T> {
     size++;
   }
 
+
   /**
-   * @param index
-   * @return element at INDEX
+   * Returns the element at the specified position in this list.
+   *
+   * @param index of the element to return
+   * @return the element at the specified position in this list
+   * @throws IndexOutOfBoundsException if the element index is outside of range
    */
   public T get(int index) {
     if (index < 0 || index >= size) {
@@ -93,20 +109,24 @@ public class CustomArrayList<T> implements CustomList<T> {
   }
 
   /**
+   * The size of the CustomArrayList (the number of elements it contains).
+   *
    * @return amount of elements in the array
    */
   public int size() {
     return size;
   }
 
+  /**
+   * Readable form of CustomArrayList (with null-s)
+   *
+   * @return full String representation of internal array
+   */
   @Override
   public String toString() {
-    return "length: " + array.length + "; array: " + Arrays.toString(array);
+    return Arrays.toString(array);
   }
 
-  /**
-   * Adjust the size of the array for efficient memory usage
-   */
   private void doubleCapacity() {
     array = Arrays.copyOf(array, array.length * 2);
 
