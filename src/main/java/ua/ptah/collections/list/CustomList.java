@@ -8,6 +8,8 @@ public interface CustomList<T> {
 
   T get(int index);
 
+  T remove();
+
   T remove(int index);
 
   int size();

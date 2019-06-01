@@ -72,7 +72,7 @@ class CustomArrayListTest {
     CustomList<Integer> customList = new CustomArrayList<>(24);
     customList.add(5);
     customList.add(4);
-    customList.remove(1);
+    assertEquals(4, customList.remove());
     System.out.println("removeAndDecreaseCapacity: 24 results: " + customList.toString());
     assertEquals(1, customList.size());
   }
@@ -80,13 +80,14 @@ class CustomArrayListTest {
   @Test
   void triggerExceptionWhenAddAtIndex() {
     CustomList<Integer> customList = new CustomArrayList<>(4);
-    assertThrows(ArrayIndexOutOfBoundsException.class, () -> customList.add(3, 6));
+    assertThrows(IndexOutOfBoundsException.class, () -> customList.add(3, 6));
   }
 
   @Test
   void triggerExceptionWhenRemoveAtIndex() {
     CustomList<Integer> customList = new CustomArrayList<>(4);
-    assertThrows(ArrayIndexOutOfBoundsException.class, () -> customList.remove(6));
+    customList.add(5);
+    assertThrows(IndexOutOfBoundsException.class, () -> customList.remove(6));
   }
 
   @Test

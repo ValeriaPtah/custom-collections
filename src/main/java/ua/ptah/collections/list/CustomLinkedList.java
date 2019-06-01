@@ -33,6 +33,11 @@ public class CustomLinkedList<T> implements CustomList<T> {
   }
 
   @Override
+  public T remove() {
+    return null;
+  }
+
+  @Override
   public T remove(int index) {
     return null;
   }

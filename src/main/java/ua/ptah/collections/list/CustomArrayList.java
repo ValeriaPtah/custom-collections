@@ -1,6 +1,7 @@
 package ua.ptah.collections.list;
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 public class CustomArrayList<T> implements CustomList<T> {
 
@@ -26,8 +27,8 @@ public class CustomArrayList<T> implements CustomList<T> {
    */
   @SuppressWarnings("unchecked")
   public CustomArrayList(int capacity) {
-    if (capacity < 0) {
-      throw new IllegalArgumentException("Capacity should be more than 0");
+    if (capacity < 1) {
+      throw new IllegalArgumentException("Capacity should be more than 1");
     }
     array = (T[]) new Object[capacity];
   }
@@ -78,9 +79,20 @@ public class CustomArrayList<T> implements CustomList<T> {
   @Override
   public T get(int index) {
     if (index < 0 || index >= size) {
-      throw new ArrayIndexOutOfBoundsException("Incorrect index, nothing at this position");
+      throw new IndexOutOfBoundsException("Incorrect index, nothing at this position");
     }
     return array[index];
+  }
+
+  /**
+   * Removes an element of type T from the end of the list
+   *
+   * @return removed element
+   * @throws NoSuchElementException if trying to remove from an empty list
+   */
+  @Override
+  public T remove() {
+    return remove(size - 1);
   }
 
   /**
@@ -89,12 +101,16 @@ public class CustomArrayList<T> implements CustomList<T> {
    *
    * @param index of an element that should be removed
    * @return removed element
-   * @throws ArrayIndexOutOfBoundsException if the element index is outside of range
+   * @throws IndexOutOfBoundsException if the element index is outside of range
+   * @throws NoSuchElementException    if trying to remove from an empty list
    */
   @Override
   public T remove(int index) {
+    if (size == 0) {
+      throw new NoSuchElementException("Cannot remove elements from an empty list");
+    }
     if (index < 0 || index >= size) {
-      throw new ArrayIndexOutOfBoundsException("Incorrect index, nothing at this position");
+      throw new IndexOutOfBoundsException("Incorrect index, nothing at this position");
     }
     T removed = array[index];
     size--;
@@ -134,7 +150,6 @@ public class CustomArrayList<T> implements CustomList<T> {
 
   private void doubleCapacity() {
     array = Arrays.copyOf(array, array.length * 2);
-
   }
 
   private void shrinkCapacity() {
