@@ -1,6 +1,8 @@
 package ua.ptah.collections.list;
 
 
+import java.util.NoSuchElementException;
+
 /**
  * an element contains a `value T` and a reference to the next element
  * or to null to signify you are at the end of the list
@@ -14,34 +16,70 @@ package ua.ptah.collections.list;
 public class CustomLinkedList<T> implements CustomList<T> {
 
   private T value;
-  private Node<T> head;
+  private Node<T> next;
   private int size;
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public void add(T el) {
 
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @throws ArrayIndexOutOfBoundsException if the element index is outside of range
+   */
   @Override
   public void add(T el, int index) {
 
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @throws IndexOutOfBoundsException if the element index is outside of range
+   */
   @Override
   public T get(int index) {
+
     return null;
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @throws NoSuchElementException if trying to remove from an empty list
+   */
   @Override
   public T remove() {
-    return null;
+    return remove(size - 1);
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @throws IndexOutOfBoundsException if the element index is outside of range
+   * @throws NoSuchElementException    if trying to remove from an empty list
+   */
   @Override
   public T remove(int index) {
-    return null;
+    if (size == 0) {
+      throw new NoSuchElementException("Cannot remove elements from an empty list");
+    }
+    if (index < 0 || index >= size) {
+      throw new IndexOutOfBoundsException("Incorrect index, nothing at this position");
+    }
+    T removed = get(index);
+    next = next.next;
+    return removed;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public int size() {
     return 0;
@@ -49,9 +87,9 @@ public class CustomLinkedList<T> implements CustomList<T> {
 
   private static class Node<T> {
     T value;
-    Node next;
+    Node<T> next;
 
-    Node(T value, Node next) {
+    Node(T value, Node<T> next) {
       this.value = value;
       this.next = next;
     }

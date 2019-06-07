@@ -34,9 +34,7 @@ public class CustomArrayList<T> implements CustomList<T> {
   }
 
   /**
-   * Adds element of type T to the end of the list
-   *
-   * @param el that is added
+   * {@inheritDoc}
    */
   @Override
   public void add(T el) {
@@ -44,12 +42,8 @@ public class CustomArrayList<T> implements CustomList<T> {
   }
 
   /**
-   * Adds element of type T to the array at position INDEX.
-   * If array gets full (80% capacity is full), rescale to a new array of size 2 * oldSize
-   * All element after index shift one (e.g. `[1, 2, 3]` is your list, if you do `.add(5, 1)` it becomes `[1, 5, 2, 3]`.
+   * {@inheritDoc}
    *
-   * @param el    that is added
-   * @param index where an element should be added
    * @throws ArrayIndexOutOfBoundsException if the element index is outside of range
    */
   @Override
@@ -68,12 +62,9 @@ public class CustomArrayList<T> implements CustomList<T> {
     size++;
   }
 
-
   /**
-   * Returns the element at the specified position in this list.
+   * {@inheritDoc}
    *
-   * @param index of the element to return
-   * @return the element at the specified position in this list
    * @throws IndexOutOfBoundsException if the element index is outside of range
    */
   @Override
@@ -85,9 +76,8 @@ public class CustomArrayList<T> implements CustomList<T> {
   }
 
   /**
-   * Removes an element of type T from the end of the list
+   * {@inheritDoc}
    *
-   * @return removed element
    * @throws NoSuchElementException if trying to remove from an empty list
    */
   @Override
@@ -96,11 +86,8 @@ public class CustomArrayList<T> implements CustomList<T> {
   }
 
   /**
-   * Removes an element at index i, shifting all back, e.g. `[1, 2, 3]` after removal at 1 list to becomes `[2, 3]`
-   * If after removal only 25% of capacity is used, then moves elements over in an array half the size
+   * {@inheritDoc}
    *
-   * @param index of an element that should be removed
-   * @return removed element
    * @throws IndexOutOfBoundsException if the element index is outside of range
    * @throws NoSuchElementException    if trying to remove from an empty list
    */
@@ -129,9 +116,7 @@ public class CustomArrayList<T> implements CustomList<T> {
   }
 
   /**
-   * The size of the CustomArrayList (the number of elements it contains).
-   *
-   * @return amount of elements in the array
+   * {@inheritDoc}
    */
   @Override
   public int size() {
