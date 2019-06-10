@@ -1,22 +1,10 @@
 package ua.ptah.collections.list;
 
-
 import java.util.NoSuchElementException;
-
-/**
- * an element contains a `value T` and a reference to the next element
- * or to null to signify you are at the end of the list
- * classically you have an internal static class `Node` with field `T value` and `Node next`
- * and then your list itself will have a field `Node head`
- * if head == null -> list is empty
- * otherwise keep doing `Node current = head;` and `Node next = current.next`
- * to iterate through
- */
 
 public class CustomLinkedList<T> implements CustomList<T> {
 
-  private T value;
-  private Node<T> next;
+  private Node<T> head;
   private int size;
 
   /**
@@ -24,7 +12,7 @@ public class CustomLinkedList<T> implements CustomList<T> {
    */
   @Override
   public void add(T el) {
-
+    add(el, 0);
   }
 
   /**
@@ -34,7 +22,22 @@ public class CustomLinkedList<T> implements CustomList<T> {
    */
   @Override
   public void add(T el, int index) {
-
+    if (index < 0 || index > size) {
+      throw new ArrayIndexOutOfBoundsException("Incorrect index, out of bound");
+    }
+    if (size == 0) {
+      head = new Node<>(el, null);
+    }
+    else {
+      if (index == 0) {
+        Node<T> h = head;
+        head = new Node<>(el, h);
+      }
+      else {
+        nodeAt(index - 1).next = new Node<>(el, nodeAt(index));
+      }
+    }
+    size++;
   }
 
   /**
@@ -44,8 +47,7 @@ public class CustomLinkedList<T> implements CustomList<T> {
    */
   @Override
   public T get(int index) {
-
-    return null;
+    return nodeAt(index).value;
   }
 
   /**
@@ -73,7 +75,13 @@ public class CustomLinkedList<T> implements CustomList<T> {
       throw new IndexOutOfBoundsException("Incorrect index, nothing at this position");
     }
     T removed = get(index);
-    next = next.next;
+    if (size == 1) {
+      head = null;
+    }
+    else {
+      nodeAt(index - 1).next = nodeAt(index).next;
+    }
+    size--;
     return removed;
   }
 
@@ -82,7 +90,18 @@ public class CustomLinkedList<T> implements CustomList<T> {
    */
   @Override
   public int size() {
-    return 0;
+    return size;
+  }
+
+  private Node<T> nodeAt(int index) {
+    if (index < 0 || index >= size) {
+      throw new IndexOutOfBoundsException("Incorrect index, nothing at this position");
+    }
+    Node<T> element = head;
+    for (int i = 0; i < index; i++) {
+      element = element.next;
+    }
+    return element;
   }
 
   private static class Node<T> {
