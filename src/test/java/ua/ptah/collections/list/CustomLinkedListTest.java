@@ -10,8 +10,10 @@ class CustomLinkedListTest {
   void addOne() {
     CustomList<Integer> customList = new CustomLinkedList<>();
     customList.add(5);
-    assertEquals(1, customList.size());
-    assertEquals(5, customList.get(0));
+    assertAll(
+        () -> assertEquals(1, customList.size()),
+        () -> assertEquals(5, customList.get(0))
+    );
   }
 
   @Test
@@ -22,7 +24,8 @@ class CustomLinkedListTest {
     assertAll(
         () -> assertEquals(2, customList.size()),
         () -> assertEquals(4, customList.get(0)),
-        () -> assertEquals(5, customList.get(1)));
+        () -> assertEquals(5, customList.get(1))
+    );
   }
 
   @Test
@@ -31,9 +34,11 @@ class CustomLinkedListTest {
     customList.add(5);
     customList.add(4);
     customList.add(3, 1);
-    assertEquals(3, customList.size());
-    assertEquals(3, customList.get(1));
-    assertEquals(5, customList.get(2));
+    assertAll(
+        () -> assertEquals(3, customList.size()),
+        () -> assertEquals(3, customList.get(1)),
+        () -> assertEquals(5, customList.get(2))
+    );
   }
 
   @Test
@@ -42,9 +47,11 @@ class CustomLinkedListTest {
     customList.add(5);
     customList.add(4);
     customList.add(3);
-    assertEquals(4, customList.remove(1));
-    assertEquals(2, customList.size());
-    assertEquals(3, customList.get(0));
+    assertAll(
+        () -> assertEquals(4, customList.remove(1)),
+        () -> assertEquals(2, customList.size()),
+        () -> assertEquals(3, customList.get(0))
+    );
   }
 
   @Test
@@ -53,16 +60,20 @@ class CustomLinkedListTest {
     customList.add(5);
     customList.add(4);
     customList.add(3);
-    assertEquals(5, customList.remove(2));
-    assertEquals(2, customList.size());
+    assertAll(
+        () -> assertEquals(5, customList.remove(2)),
+        () -> assertEquals(2, customList.size())
+    );
   }
 
   @Test
   void removeTheOnly() {
     CustomList<Integer> customList = new CustomLinkedList<>();
     customList.add(5);
-    assertEquals(5, customList.remove(0));
-    assertEquals(0, customList.size());
+    assertAll(
+        () -> assertEquals(5, customList.remove(0)),
+        () -> assertEquals(0, customList.size())
+    );
   }
 
   @Test
@@ -76,10 +87,5 @@ class CustomLinkedListTest {
     CustomList<Integer> customList = new CustomLinkedList<>();
     customList.add(5);
     assertThrows(IndexOutOfBoundsException.class, () -> customList.remove(6));
-  }
-
-  @Test
-  void triggerExceptionWithNegativeCapacity() {
-    assertThrows(IllegalArgumentException.class, () -> new CustomArrayList<>(-4));
   }
 }

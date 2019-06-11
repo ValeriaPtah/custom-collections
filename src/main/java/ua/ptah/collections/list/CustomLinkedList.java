@@ -26,15 +26,16 @@ public class CustomLinkedList<T> implements CustomList<T> {
       throw new ArrayIndexOutOfBoundsException("Incorrect index, out of bound");
     }
     if (size == 0) {
-      head = new Node<>(el, null);
+      head = new Node<>(el, null, null);
     }
     else {
       if (index == 0) {
-        Node<T> h = head;
-        head = new Node<>(el, h);
+        Node<T> h = new Node<>(head.value, head, head.next);
+        head = new Node<>(el, null, h);
       }
       else {
-        nodeAt(index - 1).next = new Node<>(el, nodeAt(index));
+        Node<T> previousNode = nodeAt(index - 1);
+        previousNode.next = new Node<>(el, previousNode, previousNode.next);
       }
     }
     size++;
@@ -74,15 +75,16 @@ public class CustomLinkedList<T> implements CustomList<T> {
     if (index < 0 || index >= size) {
       throw new IndexOutOfBoundsException("Incorrect index, nothing at this position");
     }
-    T removed = get(index);
+    Node<T> removed = nodeAt(index);
     if (size == 1) {
       head = null;
     }
     else {
-      nodeAt(index - 1).next = nodeAt(index).next;
+      Node<T> prev = nodeAt(index - 1);
+      prev.next = removed.next;
     }
     size--;
-    return removed;
+    return removed.value;
   }
 
   /**
@@ -106,10 +108,12 @@ public class CustomLinkedList<T> implements CustomList<T> {
 
   private static class Node<T> {
     T value;
+    Node<T> previous;
     Node<T> next;
 
-    Node(T value, Node<T> next) {
+    Node(T value, Node<T> previous, Node<T> next) {
       this.value = value;
+      this.previous = previous;
       this.next = next;
     }
   }
