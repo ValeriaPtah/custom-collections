@@ -3,7 +3,7 @@ package ua.ptah.collections.list;
 public interface CustomList<T> {
 
   /**
-   * Adds element of type T to the end of the list
+   * Adds element of type T to the end of the list.
    *
    * @param el that is added
    */
@@ -28,7 +28,7 @@ public interface CustomList<T> {
   T get(int index);
 
   /**
-   * Removes an element of type T from the end of the list
+   * Removes an element of type T from the end of the list.
    *
    * @return removed element
    */
@@ -36,7 +36,7 @@ public interface CustomList<T> {
 
   /**
    * Removes an element at index i, shifting all back, e.g. `[1, 2, 3]` after removal at 1 list to becomes `[2, 3]`
-   * If after removal only 25% of capacity is used, then moves elements over in an array half the size
+   * If after removal only 25% of capacity is used, then moves elements over in an array half the size.
    *
    * @param index of an element that should be removed
    * @return removed element

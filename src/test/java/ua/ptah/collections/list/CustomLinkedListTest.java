@@ -6,6 +6,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CustomLinkedListTest {
 
+  @SuppressWarnings("Convert2MethodRef")
+  @Test
+  void canCreate() {
+    assertDoesNotThrow(() -> new CustomLinkedList<>());
+  }
+
   @Test
   void addOne() {
     CustomList<Integer> customList = new CustomLinkedList<>();
@@ -18,13 +24,13 @@ class CustomLinkedListTest {
 
   @Test
   void addToTheEnd() {
-    CustomList<Integer> customList = new CustomLinkedList<>();
-    customList.add(5);
-    customList.add(4);
+    CustomDeque<Integer> customList = new CustomLinkedList<>();
+    customList.addLast(5);
+    customList.addLast(4);
     assertAll(
         () -> assertEquals(2, customList.size()),
-        () -> assertEquals(4, customList.get(0)),
-        () -> assertEquals(5, customList.get(1))
+        () -> assertEquals(5, customList.get(0)),
+        () -> assertEquals(4, customList.get(1))
     );
   }
 
@@ -37,7 +43,7 @@ class CustomLinkedListTest {
     assertAll(
         () -> assertEquals(3, customList.size()),
         () -> assertEquals(3, customList.get(1)),
-        () -> assertEquals(5, customList.get(2))
+        () -> assertEquals(4, customList.get(2))
     );
   }
 
@@ -50,7 +56,7 @@ class CustomLinkedListTest {
     assertAll(
         () -> assertEquals(4, customList.remove(1)),
         () -> assertEquals(2, customList.size()),
-        () -> assertEquals(3, customList.get(0))
+        () -> assertEquals(3, customList.get(2))
     );
   }
 
@@ -61,7 +67,19 @@ class CustomLinkedListTest {
     customList.add(4);
     customList.add(3);
     assertAll(
-        () -> assertEquals(5, customList.remove(2)),
+        () -> assertEquals(3, customList.remove(2)),
+        () -> assertEquals(2, customList.size())
+    );
+  }
+
+  @Test
+  void removeTheHead() {
+    CustomList<Integer> customList = new CustomLinkedList<>();
+    customList.add(5);
+    customList.add(4);
+    customList.add(3);
+    assertAll(
+        () -> assertEquals(5, customList.remove(0)),
         () -> assertEquals(2, customList.size())
     );
   }
@@ -71,6 +89,7 @@ class CustomLinkedListTest {
     CustomList<Integer> customList = new CustomLinkedList<>();
     customList.add(5);
     assertAll(
+        () -> assertEquals(1, customList.size()),
         () -> assertEquals(5, customList.remove(0)),
         () -> assertEquals(0, customList.size())
     );

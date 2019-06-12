@@ -2,9 +2,10 @@ package ua.ptah.collections.list;
 
 import java.util.NoSuchElementException;
 
-public class CustomLinkedList<T> implements CustomList<T> {
+public class CustomLinkedList<T> implements CustomList<T>, CustomDeque<T> {
 
-  private Node<T> head;
+  private Node<T> first;
+  private Node<T> last;
   private int size;
 
   /**
@@ -12,26 +13,26 @@ public class CustomLinkedList<T> implements CustomList<T> {
    */
   @Override
   public void add(T el) {
-    add(el, 0);
+    addLast(el);
   }
 
   /**
    * {@inheritDoc}
    *
-   * @throws ArrayIndexOutOfBoundsException if the element index is outside of range
+   * @throws IndexOutOfBoundsException if the element index is outside of range
    */
   @Override
   public void add(T el, int index) {
     if (index < 0 || index > size) {
-      throw new ArrayIndexOutOfBoundsException("Incorrect index, out of bound");
+      throw new IndexOutOfBoundsException("Incorrect index, out of bound");
     }
     if (size == 0) {
-      head = new Node<>(el, null, null);
+      first = new Node<>(el, null, null);
     }
     else {
       if (index == 0) {
-        Node<T> h = new Node<>(head.value, head, head.next);
-        head = new Node<>(el, null, h);
+        Node<T> h = new Node<>(first.value, first, first.next);
+        first = new Node<>(el, null, h);
       }
       else {
         Node<T> previousNode = nodeAt(index - 1);
@@ -39,6 +40,27 @@ public class CustomLinkedList<T> implements CustomList<T> {
       }
     }
     size++;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void addFirst(T el) {
+    add(el, 0);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void addLast(T el) {
+    if (size == 0) {
+      addFirst(el);
+    }
+    else {
+      last.next = new Node<>(el, last, null);
+    }
   }
 
   /**
@@ -58,7 +80,7 @@ public class CustomLinkedList<T> implements CustomList<T> {
    */
   @Override
   public T remove() {
-    return remove(size - 1);
+    return removeLast();
   }
 
   /**
@@ -77,7 +99,7 @@ public class CustomLinkedList<T> implements CustomList<T> {
     }
     Node<T> removed = nodeAt(index);
     if (size == 1) {
-      head = null;
+      first = null;
     }
     else {
       Node<T> prev = nodeAt(index - 1);
@@ -85,6 +107,30 @@ public class CustomLinkedList<T> implements CustomList<T> {
     }
     size--;
     return removed.value;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public T removeFirst() {
+    return remove(0);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public T removeLast() {
+    return remove(size - 1);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean contains(Object o) {
+    return false;
   }
 
   /**
@@ -99,11 +145,20 @@ public class CustomLinkedList<T> implements CustomList<T> {
     if (index < 0 || index >= size) {
       throw new IndexOutOfBoundsException("Incorrect index, nothing at this position");
     }
-    Node<T> element = head;
-    for (int i = 0; i < index; i++) {
-      element = element.next;
+    if (index < size / 2) {
+      Node<T> element = first;
+      for (int i = 0; i < index; i++) {
+        element = element.next;
+      }
+      return element;
     }
-    return element;
+    else {
+      Node<T> element = last;
+      for (int i = index; i > 0; i--) {
+        element = element.previous;
+      }
+      return element;
+    }
   }
 
   private static class Node<T> {
