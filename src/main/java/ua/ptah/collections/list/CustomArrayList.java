@@ -12,18 +12,17 @@ public class CustomArrayList<T> implements CustomList<T> {
   private int size;
 
   /**
-   * Constructs an empty list with a default INIT_CAPACITY
+   * Constructs an empty array with a default INIT_CAPACITY
    */
   public CustomArrayList() {
     this(INIT_CAPACITY);
   }
 
   /**
-   * Constructs an empty list with the specified capacity.
+   * Constructs an empty array with the specified capacity.
    *
-   * @param capacity the initial capacity of the list
-   * @throws IllegalArgumentException if the specified initial capacity
-   *                                  is negative
+   * @param capacity the initial capacity of the array
+   * @throws IllegalArgumentException if the specified initial capacity is negative
    */
   @SuppressWarnings("unchecked")
   public CustomArrayList(int capacity) {
@@ -43,6 +42,8 @@ public class CustomArrayList<T> implements CustomList<T> {
 
   /**
    * {@inheritDoc}
+   * If array gets full (80% capacity is full), rescale to a new array of size 2 * oldSize.
+   * All element after index shift one (e.g. `[1, 2, 3]` is your list, if you do `.add(5, 1)` it becomes `[1, 5, 2, 3]`.
    *
    * @throws ArrayIndexOutOfBoundsException if the element index is outside of range
    */
@@ -78,7 +79,7 @@ public class CustomArrayList<T> implements CustomList<T> {
   /**
    * {@inheritDoc}
    *
-   * @throws NoSuchElementException if trying to remove from an empty list
+   * @throws NoSuchElementException if trying to remove from an empty array
    */
   @Override
   public T remove() {
@@ -87,9 +88,11 @@ public class CustomArrayList<T> implements CustomList<T> {
 
   /**
    * {@inheritDoc}
+   * Shifts all left, e.g. [1, 2, 3] after removal at INDEX=1 list to becomes [2, 3].
+   * If after removal only 25% of capacity is used, then moves elements over in an array half the size.
    *
    * @throws IndexOutOfBoundsException if the element index is outside of range
-   * @throws NoSuchElementException    if trying to remove from an empty list
+   * @throws NoSuchElementException    if trying to remove from an empty array
    */
   @Override
   public T remove(int index) {

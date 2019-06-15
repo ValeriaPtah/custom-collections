@@ -18,32 +18,6 @@ public class CustomLinkedList<T> implements CustomList<T>, CustomDeque<T> {
 
   /**
    * {@inheritDoc}
-   *
-   * @throws IndexOutOfBoundsException if the element index is outside of range
-   */
-  @Override
-  public void add(T el, int index) {
-    if (index < 0 || index > size) {
-      throw new IndexOutOfBoundsException("Incorrect index, out of bound");
-    }
-    if (size == 0) {
-      first = new Node<>(el, null, null);
-    }
-    else {
-      if (index == 0) {
-        Node<T> h = new Node<>(first.value, first, first.next);
-        first = new Node<>(el, null, h);
-      }
-      else {
-        Node<T> previousNode = nodeAt(index - 1);
-        previousNode.next = new Node<>(el, previousNode, previousNode.next);
-      }
-    }
-    size++;
-  }
-
-  /**
-   * {@inheritDoc}
    */
   @Override
   public void addFirst(T el) {
@@ -55,12 +29,56 @@ public class CustomLinkedList<T> implements CustomList<T>, CustomDeque<T> {
    */
   @Override
   public void addLast(T el) {
+    add(el, size);
+  }
+
+  /**
+   * {@inheritDoc}
+   *
+   * @throws IndexOutOfBoundsException if the element index is outside of range
+   */
+  @Override
+  public void add(T el, int index) {
+    if (index < 0 || index > size) {
+      throw new IndexOutOfBoundsException("Incorrect index, out of bound");
+    }
     if (size == 0) {
-      addFirst(el);
+      first = new Node<>(el, null, null);
+      last = first;
     }
     else {
-      last.next = new Node<>(el, last, null);
+      if (index == 0) {
+        Node<T> prevHead = new Node<>(first.value, first, first.next);
+        first = new Node<>(el, null, prevHead);
+      }
+      else {
+        Node<T> previousNode = nodeAt(index - 1);
+        if (index == size) {
+          previousNode.next = new Node<>(el, previousNode, null);
+          last = previousNode.next;
+        }
+        else {
+          addBefore(el, previousNode.next);
+        }
+      }
     }
+    size++;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public T getFirst() {
+    return get(0);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public T getLast() {
+    return get(size - 1);
   }
 
   /**
@@ -98,12 +116,31 @@ public class CustomLinkedList<T> implements CustomList<T>, CustomDeque<T> {
       throw new IndexOutOfBoundsException("Incorrect index, nothing at this position");
     }
     Node<T> removed = nodeAt(index);
+    //remove the only element
     if (size == 1) {
       first = null;
+      last = null;
     }
     else {
-      Node<T> prev = nodeAt(index - 1);
-      prev.next = removed.next;
+      //remove the last element
+      if (index == size - 1) {
+        removed.value = last.value;
+        last = last.previous;
+        last.next = null;
+      }
+      else {
+        //remove the first element
+        if (index == 0) {
+          removed.value = first.value;
+          first = first.next;
+          first.previous = null;
+        }
+        //remove from the middle
+        else {
+          Node<T> previous = nodeAt(index - 1);
+          previous.next = removed.next;
+        }
+      }
     }
     size--;
     return removed.value;
@@ -141,11 +178,32 @@ public class CustomLinkedList<T> implements CustomList<T>, CustomDeque<T> {
     return size;
   }
 
+  private void addBefore(T el, Node<T> newNext) {
+    final Node<T> previous = newNext.previous;
+    final Node<T> newNode = new Node<>(el, previous, newNext);
+    newNext.previous = newNode;
+    if (previous == null) {
+      first = newNode;
+    }
+    else {
+      previous.next = newNode;
+    }
+  }
+
   private Node<T> nodeAt(int index) {
+    if (size == 0) {
+      throw new NoSuchElementException("The list is empty");
+    }
+    if (index == 0) {
+      return first;
+    }
+    if (index == size - 1) {
+      return last;
+    }
     if (index < 0 || index >= size) {
       throw new IndexOutOfBoundsException("Incorrect index, nothing at this position");
     }
-    if (index < size / 2) {
+    if (index <= size / 2) {
       Node<T> element = first;
       for (int i = 0; i < index; i++) {
         element = element.next;
@@ -154,7 +212,7 @@ public class CustomLinkedList<T> implements CustomList<T>, CustomDeque<T> {
     }
     else {
       Node<T> element = last;
-      for (int i = index; i > 0; i--) {
+      for (int i = size - 1; i > index; i--) {
         element = element.previous;
       }
       return element;
