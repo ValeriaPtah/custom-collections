@@ -70,6 +70,9 @@ public class CustomArrayList<T> implements CustomList<T> {
    */
   @Override
   public T get(int index) {
+    if (size == 0) {
+      throw new NoSuchElementException("The list is empty");
+    }
     if (index < 0 || index >= size) {
       throw new IndexOutOfBoundsException("Incorrect index, nothing at this position");
     }

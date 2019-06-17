@@ -88,7 +88,7 @@ class CustomLinkedListTest {
     customList.add(5);
     assertAll(
         () -> assertEquals(1, customList.size()),
-        () -> assertEquals(5, customList.remove(0)),
+        () -> assertEquals(5, customList.remove()),
         () -> assertEquals(0, customList.size())
     );
   }
@@ -136,8 +136,16 @@ class CustomLinkedListTest {
     CustomDeque<Integer> customDeque = new CustomLinkedList<>();
     assertAll(
         () -> assertThrows(NoSuchElementException.class, () -> customList.get(3)),
-        () -> assertThrows(NoSuchElementException.class, customDeque::getFirst)
+        () -> assertThrows(NoSuchElementException.class, customDeque::getFirst),
+        () -> assertThrows(NoSuchElementException.class, customDeque::getLast)
     );
+  }
+
+  @Test
+  void triggerExceptionWhenGetOutOfSize() {
+    CustomList<Integer> customList = new CustomLinkedList<>();
+    customList.add(6);
+    assertThrows(IndexOutOfBoundsException.class, () -> customList.get(3));
   }
 
   @Test

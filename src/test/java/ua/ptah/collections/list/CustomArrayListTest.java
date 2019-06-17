@@ -1,7 +1,10 @@
 package ua.ptah.collections.list;
 
+import java.util.NoSuchElementException;
+
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -18,8 +21,10 @@ class CustomArrayListTest {
   void addOne() {
     CustomList<Integer> customList = new CustomArrayList<>();
     customList.add(5);
-    assertEquals(1, customList.size());
-    assertEquals(5, customList.get(0));
+    assertAll(
+        () -> assertEquals(1, customList.size()),
+        () -> assertEquals(5, customList.get(0))
+    );
   }
 
   @Test
@@ -27,9 +32,11 @@ class CustomArrayListTest {
     CustomList<Integer> customList = new CustomArrayList<>();
     customList.add(5);
     customList.add(4);
-    assertEquals(2, customList.size());
-    assertEquals(5, customList.get(0));
-    assertEquals(4, customList.get(1));
+    assertAll(
+        () -> assertEquals(2, customList.size()),
+        () -> assertEquals(5, customList.get(0)),
+        () -> assertEquals(4, customList.get(1))
+    );
   }
 
   @Test
@@ -38,9 +45,11 @@ class CustomArrayListTest {
     customList.add(5);
     customList.add(4);
     customList.add(3, 1);
-    assertEquals(3, customList.size());
-    assertEquals(3, customList.get(1));
-    assertEquals(4, customList.get(2));
+    assertAll(
+        () -> assertEquals(3, customList.size()),
+        () -> assertEquals(3, customList.get(1)),
+        () -> assertEquals(4, customList.get(2))
+    );
   }
 
   @Test
@@ -49,9 +58,22 @@ class CustomArrayListTest {
     customList.add(5);
     customList.add(4);
     customList.add(3);
-    assertEquals(4, customList.remove(1));
-    assertEquals(2, customList.size());
-    assertEquals(3, customList.get(1));
+    assertAll(
+        () -> assertEquals(4, customList.remove(1)),
+        () -> assertEquals(2, customList.size()),
+        () -> assertEquals(3, customList.get(1))
+    );
+  }
+
+  @Test
+  void removeTheOnly() {
+    CustomList<Integer> customList = new CustomArrayList<>();
+    customList.add(5);
+    assertAll(
+        () -> assertEquals(1, customList.size()),
+        () -> assertEquals(5, customList.remove(0)),
+        () -> assertEquals(0, customList.size())
+    );
   }
 
   @Test
@@ -60,8 +82,10 @@ class CustomArrayListTest {
     customList.add(5);
     customList.add(4);
     customList.add(3);
-    assertEquals(3, customList.remove(2));
-    assertEquals(2, customList.size());
+    assertAll(
+        () -> assertEquals(3, customList.remove(2)),
+        () -> assertEquals(2, customList.size())
+    );
   }
 
   @Test
@@ -88,6 +112,26 @@ class CustomArrayListTest {
   void triggerExceptionWhenAddAtIndex() {
     CustomList<Integer> customList = new CustomArrayList<>(4);
     assertThrows(IndexOutOfBoundsException.class, () -> customList.add(3, 6));
+  }
+
+  @Test
+  void triggerExceptionWhenGetFromEmpty() {
+    CustomList<Integer> customList = new CustomArrayList<>();
+    assertThrows(NoSuchElementException.class, () -> customList.get(3));
+  }
+
+  @Test
+  void triggerExceptionWhenGetOutOfSize() {
+    CustomList<Integer> customList = new CustomArrayList<>();
+    customList.add(5);
+    assertThrows(IndexOutOfBoundsException.class, () -> customList.get(-1));
+    assertThrows(IndexOutOfBoundsException.class, () -> customList.get(3));
+  }
+
+  @Test
+  void triggerExceptionWhenRemoveFromEmpty() {
+    CustomList<Integer> customList = new CustomArrayList<>();
+    assertThrows(NoSuchElementException.class, () -> customList.remove(3));
   }
 
   @Test
