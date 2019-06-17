@@ -7,7 +7,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CustomLinkedListTest {
 
@@ -63,6 +65,20 @@ class CustomLinkedListTest {
         () -> assertEquals(100, customList.get(4)),
         () -> assertEquals(4, customList.get(5)),
         () -> assertEquals(5, customList.get(6))
+    );
+  }
+
+  @Test
+  void containsTest() {
+    CustomDeque<Integer> customDequeFull = new CustomLinkedList<>();
+    CustomDeque<Integer> customDequeEmpty = new CustomLinkedList<>();
+    customDequeFull.addLast(5);
+    customDequeFull.addLast(4);
+    assertAll(
+        () -> assertTrue(customDequeFull.contains(5)),
+        () -> assertFalse(customDequeFull.contains(10)),
+        () -> assertFalse(customDequeFull.contains("hello")),
+        () -> assertFalse(customDequeEmpty.contains(1))
     );
   }
 

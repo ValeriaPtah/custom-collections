@@ -139,6 +139,7 @@ public class CustomLinkedList<T> implements CustomList<T>, CustomDeque<T> {
         else {
           Node<T> previous = nodeAt(index - 1);
           previous.next = removed.next;
+          previous.next.previous = previous;
         }
       }
     }
@@ -167,6 +168,13 @@ public class CustomLinkedList<T> implements CustomList<T>, CustomDeque<T> {
    */
   @Override
   public boolean contains(Object o) {
+    Node<T> element = first;
+    for (int i = 0; i < size; i++) {
+      if (element.value.equals(o)) {
+        return true;
+      }
+      element = element.next;
+    }
     return false;
   }
 
