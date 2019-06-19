@@ -30,27 +30,6 @@ class CustomLinkedListTest {
   }
 
   @Test
-  void addNullFirst() {
-    CustomList<Integer> customList = new CustomLinkedList<>();
-    customList.add(null);
-    assertAll(
-        () -> assertEquals(0, customList.size()),
-        () -> assertThrows(NoSuchElementException.class, () -> customList.get(0))
-    );
-  }
-
-  @Test
-  void addNullLast() {
-    CustomList<Integer> customList = new CustomLinkedList<>();
-    customList.add(5);
-    customList.add(null);
-    assertAll(
-        () -> assertEquals(1, customList.size()),
-        () -> assertThrows(IndexOutOfBoundsException.class, () -> customList.get(1))
-    );
-  }
-
-  @Test
   void addToTheHead() {
     CustomDeque<Integer> customList = new CustomLinkedList<>();
     customList.add(5);

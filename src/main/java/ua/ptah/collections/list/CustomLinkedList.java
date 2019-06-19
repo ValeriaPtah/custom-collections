@@ -39,9 +39,6 @@ public class CustomLinkedList<T> implements CustomList<T>, CustomDeque<T> {
    */
   @Override
   public void add(T el, int index) {
-    if (el == null) {
-      return;
-    }
     if (index < 0 || index > size) {
       throw new IndexOutOfBoundsException("Incorrect index, out of bound");
     }
