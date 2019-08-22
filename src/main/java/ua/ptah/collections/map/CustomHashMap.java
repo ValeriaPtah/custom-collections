@@ -7,27 +7,32 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
+import ua.ptah.collections.list.CustomArrayList;
+import ua.ptah.collections.list.CustomLinkedList;
+
 public class CustomHashMap<K, V> implements CustomMap<K, V> {
 
-  private Node<K, V>[] hashTable;
+  private final static int DEFAULT_CAPACITY = 16;
+  private final static float DEFAULT_LOAD_FACTOR = 0.8f;
+  private CustomArrayList<CustomLinkedList<CustomEntry<K, V>>> buckets;
   private Set<Map.Entry<K, V>> entrySet;
   private int size;
   private final float loadFactor;
 
   /**
-   * It is the default constructor which creates an instance of HashMap with initial capacity 16 and load factor 0.75.
+   * It is the default constructor which creates an instance of HashMap with initial DEFAULT_CAPACITY and DEFAULT_LOAD_FACTOR.
    */
   CustomHashMap() {
-    this(16, 0.75f);
+    this(DEFAULT_CAPACITY, DEFAULT_LOAD_FACTOR);
   }
 
   /**
-   * It creates a HashMap instance with specified initial capacity and load factor 0.75.
+   * It creates a HashMap instance with specified initial DEFAULT_CAPACITY and DEFAULT_LOAD_FACTOR.
    *
    * @param capacity
    */
   CustomHashMap(int capacity) {
-    this(capacity, 0.75f);
+    this(capacity, DEFAULT_LOAD_FACTOR);
   }
 
   /**
@@ -36,9 +41,8 @@ public class CustomHashMap<K, V> implements CustomMap<K, V> {
    * @param capacity
    * @param loadFactor
    */
-  @SuppressWarnings("unchecked")
   CustomHashMap(int capacity, float loadFactor) {
-    hashTable = (Node<K, V>[]) new Object[capacity];
+    buckets = new CustomArrayList<>(capacity);
     this.loadFactor = loadFactor;
     size = 0;
   }
@@ -46,8 +50,17 @@ public class CustomHashMap<K, V> implements CustomMap<K, V> {
   /**
    * {@inheritDoc}
    */
+  //TODO: return old value if was present
   @Override
   public Optional<V> put(K key, V value) {
+    int keyHash = Objects.hashCode(key);
+    if (buckets.get((size - 1) & keyHash) == null) {
+      buckets.get(size - 1).add(new CustomEntry<>(key, value));
+      return Optional.empty();
+    }
+    else {
+
+    }
     size++;
     return Optional.empty();
   }

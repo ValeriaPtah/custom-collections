@@ -58,7 +58,9 @@ public class CustomLinkedList<T> implements CustomList<T>, CustomDeque<T> {
           last = previousNode.next;
         }
         else {
-          addBefore(el, previousNode.next);
+          final Node<T> newNode = new Node<>(el, previousNode, previousNode.next);
+          previousNode.next.previous = newNode;
+          previousNode.next = newNode;
         }
       }
     }
