@@ -188,18 +188,6 @@ public class CustomLinkedList<T> implements CustomList<T>, CustomDeque<T> {
     return size;
   }
 
-  private void addBefore(T el, Node<T> newNext) {
-    final Node<T> previous = newNext.previous;
-    final Node<T> newNode = new Node<>(el, previous, newNext);
-    newNext.previous = newNode;
-    if (previous == null) {
-      first = newNode;
-    }
-    else {
-      previous.next = newNode;
-    }
-  }
-
   private Node<T> nodeAt(int index) {
     if (size == 0) {
       throw new NoSuchElementException("The list is empty");
